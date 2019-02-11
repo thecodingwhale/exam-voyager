@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "connected-react-router": "4.5.0",
+    "immutable": "^4.0.0-rc.12",
+    "query-string": "^6.2.0",
     "react": "16.8.1",
     "react-dom": "16.8.1",
     "react-redux": "5.1.1",
@@ -19,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "yarn eslint src/**/*.js"
+    "lint": "yarn eslint src --ext .js",
+    "lint:fix": "yarn eslint src --ext .js --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
