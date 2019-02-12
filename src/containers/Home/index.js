@@ -1,18 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { push } from 'connected-react-router';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import ReactPaginate from 'react-paginate';
-import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import {
 	FETCHING,
-	DELETING,
-} from './constants';
+} from '../../shared/constants';
 import {
 	getPosts,
-	deletePostById,
 } from './actions';
 
 class Home extends Component {
@@ -28,10 +25,6 @@ class Home extends Component {
 		}
 	}
 
-	deletePost = (postId) => {
-		this.props.deletePostById(postId);
-	}
-
 	handlePaginationClick = ({ selected }) => {
 		this.props.changePage(selected);
 	}
@@ -40,33 +33,18 @@ class Home extends Component {
 		const { requestType, posts, totalPosts, error } = this.props;
 		return (
 			<div>
-				<div>Number of posts: {totalPosts}</div>
-				{error !== false && (
-					<div>{error}</div>
-				)}
-				{requestType === FETCHING ? (
-					<div>
-						Fetching Posts
-					</div>
-				) : (
-					<div>
-						{posts.length !== 0 && (
-							<div>
-								{posts.map(( post, index ) => (
-					        <Card key={post.id} body outline style={{ marginBottom: '8px' }}>
-					          <CardTitle><Link to={`/post/${post.id}`}>{post.title}</Link> | {post.id}</CardTitle>
-					          <CardText>{post.content}</CardText>
-					          <Button
-											onClick={this.deletePost.bind(this, post.id)}
-											disabled={requestType === DELETING}
-					          >
-					          	Delete
-					          </Button>
-					        </Card>
-								))}
+				{error !== false && <div>{error}</div>}
+				{requestType === FETCHING && <div>Fetching...</div>}
+				{totalPosts !== 0 && <div>Number of posts: {totalPosts}</div>}
+				{posts.length !== 0 && (
+					<Fragment>
+						{posts.map(( post, index ) => (
+							<div key={post.id}>
+								<Link to={`/post/${post.id}`}>{post.title}</Link>
+								<p>{post.content}</p>
 							</div>
-						)}
-					</div>
+						))}
+					</Fragment>
 				)}
 				{posts.length !== 0 && (
 	        <ReactPaginate
@@ -78,7 +56,7 @@ class Home extends Component {
 	          onPageChange={this.handlePaginationClick}
 	          containerClassName={'pagination'}
 	          breakClassName="page-item"
-	          breakLabel={<a className="page-link">...</a>}
+	          breakLabel={<Link className="page-link">...</Link>}
 	          pageClassName="page-item"
 	          previousClassName="page-item"
 	          nextClassName="page-item"
@@ -107,7 +85,6 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
     	getPosts,
-    	deletePostById,
     	changePage: (page) => push(`?page=${page + 1}`)
     },
     dispatch
