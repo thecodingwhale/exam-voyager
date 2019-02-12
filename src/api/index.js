@@ -6,7 +6,6 @@ const getPosts = (page = 1, limit = 5) => {
     const end = page * limit;
     const posts = db.get('posts').slice(start, end).value();
     const totalPosts = db.get('posts').size().value();
-
     setTimeout(
       () => {
         resolve({
@@ -22,6 +21,28 @@ const getPosts = (page = 1, limit = 5) => {
   });
 };
 
+const deletePostById = (postId) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(
+      () => {
+        const posts = db.get('posts');
+        const post = posts.find({ id: postId });
+        const isPostIdDoesNotExists = post.size().value() === 0;
+        if (isPostIdDoesNotExists) {
+          reject({
+            message: 'No post id found',
+          });
+          return false;
+        }
+        posts.remove({ id: postId }).write();
+        resolve(true);
+      },
+      1000,
+    );
+  });
+};
+
 export default {
 	getPosts,
+  deletePostById,
 };

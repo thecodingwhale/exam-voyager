@@ -1,29 +1,58 @@
-import { fromJS } from 'immutable';
 import {
   GET_POSTS_REQUESTED,
   GET_POSTS,
+  DELETE_POST_REQUESTED,
+  DELETE_POST,
+  FETCHING,
+  DELETING,
+  ERROR,
 } from './constants';
 
 const initialState = {
-  fetching: false,
+  requestType: null,
+  error: false,
   posts: [],
   totalPosts: 0,
+  limit: 0,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case ERROR:
+      return {
+        ...state,
+        requestType: null,
+        error: action.error.message,
+      };
+      return state;
+
     case GET_POSTS_REQUESTED:
       return {
         ...state,
-        fetching: true
+        requestType: FETCHING,
       };
 
     case GET_POSTS:
+      const { posts, totalPosts, limit } = action;
       return {
         ...state,
-        fetching: false,
-        posts: action.posts,
-        totalPosts: action.totalPosts,
+        requestType: null,
+        posts,
+        totalPosts,
+        limit,
+      };
+
+    case DELETE_POST_REQUESTED:
+      return {
+        ...state,
+        error: false,
+        requestType: DELETING,
+      };
+
+    case DELETE_POST:
+      return {
+        ...state,
+        requestType: null,
       };
 
     default:

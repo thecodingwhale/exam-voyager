@@ -74,7 +74,7 @@ const initMockData = () => {
     }]
   })
   .write();
-}
+};
 
 const isEmptyState = Object.entries(db.getState()).length === 0 && db.getState().constructor === Object;
 if (isEmptyState) {

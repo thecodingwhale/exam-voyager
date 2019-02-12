@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { getPosts } from './actions';
+import {
+	FETCHING,
+	DELETING,
+} from './constants';
+import {
+	getPosts,
+	deletePostById,
+} from './actions';
 
 class Home extends Component {
 	componentDidMount() {
@@ -10,9 +17,13 @@ class Home extends Component {
 		this.props.getPosts(params.page, params.limit);
 	}
 
+	deletePost = (postId) => {
+		this.props.deletePostById(postId);
+	}
+
 	render() {
-		const { fetching, posts, totalPosts } = this.props;
-		if (fetching) {
+		const { requestType, posts, totalPosts, error } = this.props;
+		if (requestType === FETCHING) {
 			return (
 				<div>
 					Fetching Blog Posts
@@ -29,10 +40,20 @@ class Home extends Component {
 		return (
 			<div>
 				Number of posts: {totalPosts}
+				{error !== false && (
+					<div>{error}</div>
+				)}
 				{posts.map(( post, index ) => (
 					<div key={post.id}>
 						<div>{post.title} : {post.id}</div>
 						<div>{post.content}</div>
+						<button
+							type="button"
+							onClick={this.deletePost.bind(this, post.id)}
+							disabled={requestType === DELETING}
+						>
+							delete
+						</button>
 					</div>
 				))}
 			</div>
@@ -41,11 +62,12 @@ class Home extends Component {
 }
 
 const mapStateToProps = ({ homeReducer }) => {
-	const { fetching, posts, totalPosts } = homeReducer;
+	const { requestType, posts, totalPosts, error } = homeReducer;
 	return {
 		totalPosts,
-		fetching,
+		requestType,
 		posts,
+		error,
 	};
 };
 
@@ -53,6 +75,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
     	getPosts,
+    	deletePostById,
     },
     dispatch
   );

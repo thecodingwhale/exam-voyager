@@ -1,7 +1,10 @@
 import api from '../../api';
 import {
-	GET_POSTS_REQUESTED,
-	GET_POSTS,
+  GET_POSTS_REQUESTED,
+  GET_POSTS,
+  DELETE_POST_REQUESTED,
+  DELETE_POST,
+  ERROR,
 } from './constants';
 
 export const getPosts = (page, limit) => {
@@ -9,10 +12,38 @@ export const getPosts = (page, limit) => {
     dispatch({
       type: GET_POSTS_REQUESTED,
     });
-		return api.getPosts(page, limit).then(payload => dispatch({
+		api.getPosts(page, limit).then(response => dispatch({
       type: GET_POSTS,
-      posts: payload.posts,
-      totalPosts: payload.totalPosts,
+      posts: response.data,
+      totalPosts: response.meta.total,
+      limit: response.meta.limit,
     }));
+  };
+};
+
+export const deletePostById = (postId) => {
+  return dispatch => {
+    dispatch({
+      type: DELETE_POST_REQUESTED,
+    });
+    api.deletePostById(postId)
+      .then(() => {
+        dispatch({
+          type: DELETE_POST,
+        });
+        dispatch({
+          type: GET_POSTS_REQUESTED,
+        });
+        api.getPosts().then(response => dispatch({
+          type: GET_POSTS,
+          posts: response.data,
+          totalPosts: response.meta.total,
+          limit: response.meta.limit,
+        }));
+      })
+      .catch(error => dispatch({
+        type: ERROR,
+        error,
+      }));
   };
 };
