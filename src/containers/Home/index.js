@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { push } from 'connected-react-router';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
@@ -53,7 +54,7 @@ class Home extends Component {
 							<div>
 								{posts.map(( post, index ) => (
 					        <Card key={post.id} body outline style={{ marginBottom: '8px' }}>
-					          <CardTitle>{post.title}</CardTitle>
+					          <CardTitle><Link to={`/post/${post.id}`}>{post.title}</Link> | {post.id}</CardTitle>
 					          <CardText>{post.content}</CardText>
 					          <Button
 											onClick={this.deletePost.bind(this, post.id)}
