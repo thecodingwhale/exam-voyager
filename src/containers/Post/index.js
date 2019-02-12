@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
+import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Jumbotron, Button } from 'reactstrap';
+import { Jumbotron, Button, Alert } from 'reactstrap';
 import {
 	FETCHING,
+	DELETING,
 } from '../../shared/constants';
 import {
 	getPostById,
+	deletePostById,
 } from './actions';
+import {
+	DELETE_POST,
+} from './constants';
 
 class Post extends Component {
 	componentDidMount() {
 		this.props.getPostById(this.props.match.params.id)
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.requestType === DELETE_POST) {
+			nextProps.changePage('/');
+		}
+	}
+
+	deletePost = (postId) => {
+		this.props.deletePostById(postId);
 	}
 
 	render() {
@@ -26,7 +42,7 @@ class Post extends Component {
 		return (
 		  <div>
 				{error !== false && (
-					<div>{error}</div>
+					<Alert color="danger">{error}</Alert>
 				)}
 				{post && (
 		      <Jumbotron>
@@ -34,7 +50,13 @@ class Post extends Component {
 		        <hr className="my-2" />
 		        <p>{post.content}</p>
 		        <p className="lead">
-		          <Button color="danger">Delete</Button>
+		          <Button
+		          	color="danger"
+		          	onClick={this.deletePost.bind(this, post.id)}
+		          	disabled={requestType === DELETING}
+		          >
+		          	{requestType === DELETING ? 'Deleting...' : 'Delete'}
+		          </Button>
 		        </p>
 		      </Jumbotron>
 				)}
@@ -56,6 +78,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
     	getPostById,
+    	deletePostById,
+    	changePage: (url) => push(url)
     },
     dispatch
   );

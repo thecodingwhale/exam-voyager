@@ -56,7 +56,7 @@ const deletePostById = (postId) => {
           });
           return false;
         }
-        post.remove({ id: postId }).write();
+        posts.remove({ id: postId }).write();
         resolve(true);
       },
       1000,

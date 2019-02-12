@@ -9,13 +9,13 @@ const App = () => (
   <Fragment>
     <Navbar style={{ marginBottom: "20px" }} color="light" light expand="md">
       <Container>
-        <NavbarBrand tag={Link} exact to="/">Voyager</NavbarBrand>
+        <NavbarBrand tag={Link} exact="true" to="/">Voyager</NavbarBrand>
         <Nav className="ml-auto" navbar>
           <NavItem>
-            <NavLink tag={Link} exact to="/">Home</NavLink>
+            <NavLink tag={Link} exact="true" to="/">Home</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink tag={Link} exact to="/about-us">About</NavLink>
+            <NavLink tag={Link} exact="true" to="/about-us">About</NavLink>
           </NavItem>
         </Nav>
       </Container>

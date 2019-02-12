@@ -1,10 +1,13 @@
 import {
 	GET_POST_REQUESTED,
 	GET_POST,
+	DELETE_POST_REQUESTED,
+	DELETE_POST,
 } from './constants';
 import {
 	FETCHING,
 	ERROR,
+	DELETING,
 } from '../../shared/constants';
 
 const initialState = {
@@ -33,6 +36,18 @@ export default (state = initialState, action) => {
 	      ...state,
 	      requestType: null,
 	      post: action.post,
+	    };
+
+	  case DELETE_POST_REQUESTED:
+	    return {
+	      ...state,
+	      requestType: DELETING,
+	    };
+
+	  case DELETE_POST:
+	    return {
+	      ...state,
+	      requestType: DELETE_POST,
 	    };
 
     default:

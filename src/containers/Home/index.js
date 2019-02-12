@@ -40,7 +40,9 @@ class Home extends Component {
 					<Fragment>
 						{posts.map(( post, index ) => (
 							<div key={post.id}>
-								<Link to={`/post/${post.id}`}>{post.title}</Link>
+								<Link to={`/post/${post.id}`}>
+									{post.title}
+								</Link>
 								<p>{post.content}</p>
 							</div>
 						))}
@@ -56,7 +58,6 @@ class Home extends Component {
 	          onPageChange={this.handlePaginationClick}
 	          containerClassName={'pagination'}
 	          breakClassName="page-item"
-	          breakLabel={<Link className="page-link">...</Link>}
 	          pageClassName="page-item"
 	          previousClassName="page-item"
 	          nextClassName="page-item"
