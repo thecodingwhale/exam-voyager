@@ -6,6 +6,7 @@ import store, { history } from './store';
 import App from './containers/App';
 
 import 'sanitize.css/sanitize.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
 const target = document.querySelector('#root');

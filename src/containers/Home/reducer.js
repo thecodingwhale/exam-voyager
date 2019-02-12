@@ -24,7 +24,6 @@ export default (state = initialState, action) => {
         requestType: null,
         error: action.error.message,
       };
-      return state;
 
     case GET_POSTS_REQUESTED:
       return {

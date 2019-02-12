@@ -1,4 +1,5 @@
 import shortid from 'shortid';
+import faker from 'faker';
 import low from 'lowdb';
 import LocalStorage from 'lowdb/adapters/LocalStorage';
 
@@ -9,68 +10,68 @@ const initMockData = () => {
   db.defaults({
     posts: [{
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }, {
       id: shortid.generate(),
-      title: 'post title',
-      content: 'post content',
+      title: faker.lorem.sentence(),
+      content: faker.lorem.text(),
     }]
   })
   .write();

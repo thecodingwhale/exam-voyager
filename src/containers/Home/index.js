@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import ReactPaginate from 'react-paginate';
+import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import {
 	FETCHING,
 	DELETING,
@@ -17,45 +20,73 @@ class Home extends Component {
 		this.props.getPosts(params.page, params.limit);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (this.props.location.search !== nextProps.location.search) {
+			const params = queryString.parse(nextProps.location.search);
+			nextProps.getPosts(params.page, params.limit);
+		}
+	}
+
 	deletePost = (postId) => {
 		this.props.deletePostById(postId);
 	}
 
+	handlePaginationClick = ({ selected }) => {
+		this.props.changePage(selected);
+	}
+
 	render() {
 		const { requestType, posts, totalPosts, error } = this.props;
-		if (requestType === FETCHING) {
-			return (
-				<div>
-					Fetching Blog Posts
-				</div>
-			);
-		}
-		if (posts.length === 0) {
-			return (
-				<div>
-					No Posts
-				</div>
-			);
-		}
 		return (
 			<div>
-				Number of posts: {totalPosts}
+				<div>Number of posts: {totalPosts}</div>
 				{error !== false && (
 					<div>{error}</div>
 				)}
-				{posts.map(( post, index ) => (
-					<div key={post.id}>
-						<div>{post.title} : {post.id}</div>
-						<div>{post.content}</div>
-						<button
-							type="button"
-							onClick={this.deletePost.bind(this, post.id)}
-							disabled={requestType === DELETING}
-						>
-							delete
-						</button>
+				{requestType === FETCHING ? (
+					<div>
+						Fetching Posts
 					</div>
-				))}
+				) : (
+					<div>
+						{posts.length !== 0 && (
+							<div>
+								{posts.map(( post, index ) => (
+					        <Card key={post.id} body outline style={{ marginBottom: '8px' }}>
+					          <CardTitle>{post.title}</CardTitle>
+					          <CardText>{post.content}</CardText>
+					          <Button
+											onClick={this.deletePost.bind(this, post.id)}
+											disabled={requestType === DELETING}
+					          >
+					          	Delete
+					          </Button>
+					        </Card>
+								))}
+							</div>
+						)}
+					</div>
+				)}
+				{posts.length !== 0 && (
+	        <ReactPaginate
+	          previousLabel={'Previous'}
+	          nextLabel={'Next'}
+	          pageCount={Math.floor(totalPosts / 5) + 1}
+	          marginPagesDisplayed={2}
+	          pageRangeDisplayed={1}
+	          onPageChange={this.handlePaginationClick}
+	          containerClassName={'pagination'}
+	          breakClassName="page-item"
+	          breakLabel={<a className="page-link">...</a>}
+	          pageClassName="page-item"
+	          previousClassName="page-item"
+	          nextClassName="page-item"
+	          pageLinkClassName="page-link"
+	          previousLinkClassName="page-link"
+	          nextLinkClassName="page-link"
+	          activeClassName="page-item active"
+	        />
+				)}
 			</div>
 		);
 	}
@@ -76,6 +107,7 @@ const mapDispatchToProps = dispatch =>
     {
     	getPosts,
     	deletePostById,
+    	changePage: (page) => push(`?page=${page + 1}`)
     },
     dispatch
   );
