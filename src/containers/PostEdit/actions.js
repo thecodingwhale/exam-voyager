@@ -1,12 +1,7 @@
 import { push } from 'connected-react-router';
 import api from '../../api';
-import {
-  UPDATE_POST_REQUESTED,
-  UPDATE_POST,
-} from './constants';
-import {
-	ERROR
-} from '../../shared/constants';
+import { UPDATE_POST_REQUESTED } from './constants';
+import { ERROR } from '../../shared/constants';
 
 export const updatePost = (id, post) => {
 	return dispatch => {
@@ -19,5 +14,5 @@ export const updatePost = (id, post) => {
         type: ERROR,
         error,
       }));
-	}
-}
+	};
+};

@@ -2,21 +2,11 @@ import React, { Component } from 'react';
 import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Button, Alert, Row, Col } from 'reactstrap';
+import { Alert, Row, Col } from 'reactstrap';
 import PostForm from '../../components/PostForm';
-import {
-	FETCHING,
-	DELETING,
-} from '../../shared/constants';
-import {
-	getPostById,
-} from '../Post/actions';
-import {
-	updatePost,
-} from './actions';
-import {
-	UPDATE_POST,
-} from './constants';
+import { FETCHING } from '../../shared/constants';
+import { getPostById } from '../Post/actions';
+import { updatePost } from './actions';
 
 class PostEdit extends Component {
 	componentDidMount() {
@@ -63,7 +53,7 @@ class PostEdit extends Component {
 }
 
 const mapStateToProps = ({ postReducer, postEditReducer }) => {
-	const { requestType, error, post } = postReducer;
+	const { error, post } = postReducer;
 	return {
 		requestType : postReducer.requestType || postEditReducer.requestType,
 		error,

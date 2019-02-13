@@ -82,7 +82,7 @@ const validatePost = (id, title) => {
       500,
     );
   });
-}
+};
 
 const createPost = ({ title, content }) => {
   return new Promise((resolve, reject) => {
@@ -100,7 +100,7 @@ const createPost = ({ title, content }) => {
         id: shortid.generate(),
         title,
         content
-      }
+      };
       db.get('posts')
         .push(newPost)
         .write();
@@ -109,7 +109,7 @@ const createPost = ({ title, content }) => {
       });
     }, 500);
   });
-}
+};
 
 const updatePost = (id , { title, content }) => {
   return new Promise((resolve, reject) => {
@@ -129,7 +129,7 @@ const updatePost = (id , { title, content }) => {
       resolve(true);
     }, 500);
   });
-}
+};
 
 export default {
   getPost,

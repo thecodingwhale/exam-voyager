@@ -1,13 +1,11 @@
 import api from '../../api';
+import { push } from 'connected-react-router';
 import {
 	GET_POST_REQUESTED,
 	GET_POST,
   DELETE_POST_REQUESTED,
-  DELETE_POST,
 } from './constants';
-import {
-	ERROR
-} from '../../shared/constants';
+import { ERROR } from '../../shared/constants';
 
 export const getPostById = (postId) => {
   return dispatch => {
@@ -32,9 +30,7 @@ export const deletePostById = (postId) => {
       type: DELETE_POST_REQUESTED,
     });
     api.deletePostById(postId)
-      .then(response => dispatch({
-        type: DELETE_POST,
-      }))
+      .then(response => dispatch(push('/')))
       .catch(error => dispatch({
         type: ERROR,
         error,

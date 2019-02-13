@@ -2,7 +2,6 @@ import {
 	GET_POST_REQUESTED,
 	GET_POST,
 	DELETE_POST_REQUESTED,
-	DELETE_POST,
 } from './constants';
 import {
 	FETCHING,
@@ -42,12 +41,6 @@ export default (state = initialState, action) => {
 	    return {
 	      ...state,
 	      requestType: DELETING,
-	    };
-
-	  case DELETE_POST:
-	    return {
-	      ...state,
-	      requestType: DELETE_POST,
 	    };
 
     default:

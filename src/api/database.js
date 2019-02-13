@@ -7,72 +7,16 @@ const adapter = new LocalStorage('db');
 export const db = low(adapter);
 
 const initMockData = () => {
+  const posts = [];
+  for (let step = 0; step < 16; step++) {
+    posts.push({
+      id: shortid.generate(),
+      title: faker.lorem.sentence(),
+      content: faker.lorem.paragraphs(),
+    });
+  }
   db.defaults({
-    posts: [{
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }, {
-      id: shortid.generate(),
-      title: faker.lorem.sentence(),
-      content: faker.lorem.text(),
-    }]
+    posts: posts,
   })
   .write();
 };

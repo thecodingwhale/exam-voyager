@@ -4,30 +4,31 @@ import { Col, Button, Form, FormGroup, Label, Input, FormFeedback, FormText } fr
 import api from '../../api';
 
 const validate = values => {
-  const errors = {}
+  const errors = {};
   if (!values.title) {
-    errors.title = 'Required'
+    errors.title = 'Required';
   } else if (values.title.length > 100) {
-    errors.title = 'Must be 100 characters or less.'
+    errors.title = 'Must be 100 characters or less.';
   }
 
   if (!values.content) {
-    errors.content = 'Required'
+    errors.content = 'Required';
   } else if (values.content.length < 150) {
-    errors.content = 'Must be 150 characters or more.'
+    errors.content = 'Must be 150 characters or more.';
   }
 
-  return errors
-}
+  return errors;
+};
 
 const asyncValidate = (values, dispatch, props) => {
   return api.validatePost(props.postId, values.title)
-    .catch(error => {
-      throw {
-        title: error.message,
-      }
+    .catch(err => {
+      const error = {
+        title: err.message,
+      };
+      throw error;
     });
-}
+};
 
 const renderField = ({
   input,
@@ -59,7 +60,7 @@ const renderField = ({
       </Col>
     </FormGroup>
   );
-}
+};
 
 let PostForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
