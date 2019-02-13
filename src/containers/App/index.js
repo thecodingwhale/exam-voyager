@@ -5,6 +5,7 @@ import Home from '../Home';
 import About from '../About';
 import Post from '../Post';
 import PostCreate from '../PostCreate';
+import PostEdit from '../PostEdit';
 
 const App = () => (
   <Fragment>
@@ -28,6 +29,7 @@ const App = () => (
             <Route exact path="/" component={Home} />
             <Route exact path="/post/create" component={PostCreate} />
             <Route exact path="/post/:id" component={Post} />
+            <Route exact path="/post/:id/edit" component={PostEdit} />
             <Route exact path="/about-us" component={About} />
           </Switch>
         </Col>

@@ -3,7 +3,7 @@ import { push } from 'connected-react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Col, Row, Alert } from 'reactstrap';
-import PostForm from './PostForm';
+import PostForm from '../../components/PostForm';
 import { createPost }  from './actions';
 import {
 	CREATE_POST,

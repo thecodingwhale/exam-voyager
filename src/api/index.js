@@ -18,7 +18,7 @@ const getPost = (postId) => {
           data: post.value(),
         });
       },
-      1000,
+      500,
     );
   });
 };
@@ -27,7 +27,7 @@ const getPosts = (page = 1, limit = 5) => {
   return new Promise((resolve, reject) => {
     const start = (page * limit) - limit;
     const end = page * limit;
-    const posts = db.get('posts').slice(start, end).value();
+    const posts = db.get('posts').reverse().slice(start, end).value();
     const totalPosts = db.get('posts').size().value();
     setTimeout(
       () => {
@@ -39,7 +39,7 @@ const getPosts = (page = 1, limit = 5) => {
           }
         });
       },
-     	1000,
+     	500,
     );
   });
 };
@@ -60,19 +60,18 @@ const deletePostById = (postId) => {
         posts.remove({ id: postId }).write();
         resolve(true);
       },
-      1000,
+      500,
     );
   });
 };
 
-const validatePostTitle = (postTitle) => {
+const validatePost = (id, title) => {
   return new Promise((resolve, reject) => {
     setTimeout(
       () => {
-        const posts = db.get('posts');
-        const post = posts.find({ title: postTitle });
+        const post = db.get('posts').find({ title });
         const isPostTitleExists = post.size().value() !== 0;
-        if (isPostTitleExists) {
+        if (isPostTitleExists && post.value().id !== id) {
           reject({
             message: 'Title was already added.',
           });
@@ -80,7 +79,7 @@ const validatePostTitle = (postTitle) => {
         }
         resolve(true);
       },
-      1000,
+      500,
     );
   });
 }
@@ -89,7 +88,7 @@ const createPost = ({ title, content }) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const posts = db.get('posts');
-      const post = posts.find({ title: 'title' });
+      const post = posts.find({ title: title });
       const isPostTitleExists = post.size().value() !== 0;
       if (isPostTitleExists) {
         reject({
@@ -108,7 +107,27 @@ const createPost = ({ title, content }) => {
       resolve({
         data: newPost,
       });
-    }, 1000);
+    }, 500);
+  });
+}
+
+const updatePost = (id , { title, content }) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const post = db.get('posts').find({ title });
+      const isPostTitleExists = post.size().value() !== 0;
+      if (isPostTitleExists && post.value().id !== id) {
+        reject({
+          message: 'Title was already added.',
+        });
+        return false;
+      }
+      db.get('posts')
+        .find({ id })
+        .assign({ title, content })
+        .write();
+      resolve(true);
+    }, 500);
   });
 }
 
@@ -116,6 +135,7 @@ export default {
   getPost,
 	getPosts,
   deletePostById,
-  validatePostTitle,
+  validatePost,
   createPost,
+  updatePost,
 };

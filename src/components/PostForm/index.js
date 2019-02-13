@@ -20,12 +20,13 @@ const validate = values => {
   return errors
 }
 
-const asyncValidate = (values) => {
-  return api.validatePostTitle(values.title).catch(error => {
-    throw {
-      title: error.message,
-    }
-  })
+const asyncValidate = (values, dispatch, props) => {
+  return api.validatePost(props.postId, values.title)
+    .catch(error => {
+      throw {
+        title: error.message,
+      }
+    });
 }
 
 const renderField = ({

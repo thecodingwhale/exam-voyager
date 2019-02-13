@@ -30,6 +30,10 @@ class Post extends Component {
 		this.props.deletePostById(postId);
 	}
 
+	editPost = (postId) => {
+		this.props.changePage(`/post/${postId}/edit`);
+	}
+
 	render() {
 		const { requestType, error, post } = this.props;
 		if (requestType === FETCHING) {
@@ -56,6 +60,12 @@ class Post extends Component {
 		          	disabled={requestType === DELETING}
 		          >
 		          	{requestType === DELETING ? 'Deleting...' : 'Delete'}
+		          </Button>{' '}
+		          <Button
+		          	color="primary"
+		          	onClick={this.editPost.bind(this, post.id)}
+		          >
+		          	Edit
 		          </Button>
 		        </p>
 		      </Jumbotron>
