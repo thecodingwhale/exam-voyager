@@ -3,24 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "^4.3.0",
+    "bootstrap": "  4.3.0",
     "connected-react-router": "4.5.0",
-    "immutable": "^4.0.0-rc.12",
-    "lowdb": "^1.0.0",
-    "query-string": "^6.2.0",
+    "immutable": "4.0.0-rc.12",
+    "lowdb": "1.0.0",
+    "query-string": "6.2.0",
     "react": "16.8.1",
     "react-dom": "16.8.1",
-    "react-paginate": "^6.2.1",
+    "react-paginate": "6.2.1",
     "react-redux": "5.1.1",
     "react-router": "4.3.1",
     "react-router-dom": "4.3.1",
     "react-scripts": "2.1.4",
-    "reactstrap": "^7.1.0",
+    "reactstrap": "7.1.0",
     "redux": "4.0.1",
-    "redux-form": "^8.1.0",
+    "redux-form": "8.1.0",
     "redux-thunk": "2.3.0",
     "sanitize.css": "8.0.0",
-    "shortid": "^2.2.14"
+    "shortid": "2.2.14"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -40,6 +40,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "faker": "^4.1.0"
+    "faker": "4.1.0"
   }
 }
