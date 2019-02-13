@@ -17,7 +17,7 @@ import {
 
 class Post extends Component {
 	componentDidMount() {
-		this.props.getPostById(this.props.match.params.id)
+		this.props.getPostById(this.props.match.params.id);
 	}
 
 	componentWillReceiveProps(nextProps) {

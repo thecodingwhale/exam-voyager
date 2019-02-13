@@ -24,7 +24,7 @@ export const getPostById = (postId) => {
         error,
       }));
   };
-}
+};
 
 export const deletePostById = (postId) => {
   return dispatch => {
@@ -39,5 +39,5 @@ export const deletePostById = (postId) => {
         type: ERROR,
         error,
       }));
-  }
-}
+  };
+};

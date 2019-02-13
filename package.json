@@ -17,6 +17,7 @@
     "react-scripts": "2.1.4",
     "reactstrap": "^7.1.0",
     "redux": "4.0.1",
+    "redux-form": "^8.1.0",
     "redux-thunk": "2.3.0",
     "sanitize.css": "8.0.0",
     "shortid": "^2.2.14"

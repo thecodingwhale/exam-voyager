@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 import ReactPaginate from 'react-paginate';
+import { Button, Alert } from 'reactstrap';
 import {
 	FETCHING,
 } from '../../shared/constants';
@@ -26,15 +27,29 @@ class Home extends Component {
 	}
 
 	handlePaginationClick = ({ selected }) => {
-		this.props.changePage(selected);
+		this.props.changePage(`?page=${selected + 1}`);
+	}
+
+	handleCreatePostClick = () => {
+		this.props.changePage('/post/create');
 	}
 
 	render() {
 		const { requestType, posts, totalPosts, error } = this.props;
 		return (
 			<div>
+				<p>
+					<Button color="primary" onClick={this.handleCreatePostClick}>
+						Create Post
+					</Button>
+				</p>
 				{error !== false && <div>{error}</div>}
 				{requestType === FETCHING && <div>Fetching...</div>}
+				{(requestType !== FETCHING && totalPosts === 0) && (
+					<Alert color="info">
+						No posts found.
+					</Alert>
+				)}
 				{totalPosts !== 0 && <div>Number of posts: {totalPosts}</div>}
 				{posts.length !== 0 && (
 					<Fragment>
@@ -86,7 +101,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
     	getPosts,
-    	changePage: (page) => push(`?page=${page + 1}`)
+    	changePage: (url) => push(url)
     },
     dispatch
   );

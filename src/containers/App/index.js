@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import { Container, Row, Col, Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import Home from '../Home';
-import Post from '../Post';
 import About from '../About';
+import Post from '../Post';
+import PostCreate from '../PostCreate';
 
 const App = () => (
   <Fragment>
@@ -23,9 +24,12 @@ const App = () => (
     <Container>
       <Row>
         <Col>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/post/:id" component={Post} />
-          <Route exact path="/about-us" component={About} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/post/create" component={PostCreate} />
+            <Route exact path="/post/:id" component={Post} />
+            <Route exact path="/about-us" component={About} />
+          </Switch>
         </Col>
       </Row>
     </Container>
