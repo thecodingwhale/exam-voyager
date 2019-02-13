@@ -28,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose true",
     "eject": "react-scripts eject",
     "lint": "yarn eslint src --ext .js",
     "lint:fix": "yarn eslint src --ext .js --fix"
@@ -43,6 +43,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "faker": "4.1.0"
+    "faker": "4.1.0",
+    "react-router-enzyme-context": "^1.2.0"
   }
 }

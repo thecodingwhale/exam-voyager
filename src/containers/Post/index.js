@@ -45,9 +45,7 @@ class Post extends Component {
 		}
 		return (
 		  <div>
-				{error !== false && (
-					<Alert color="danger">{error}</Alert>
-				)}
+				{error !== false && <Alert color="danger">{error}</Alert>}
 				{post && (
 		      <Jumbotron>
 		        <p className="lead">{post.title}</p>

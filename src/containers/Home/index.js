@@ -8,12 +8,13 @@ import ReactPaginate from 'react-paginate';
 import { Button, Alert } from 'reactstrap';
 import {
 	FETCHING,
+	LIMIT_POST,
 } from '../../shared/constants';
 import {
 	getPosts,
 } from './actions';
 
-class Home extends Component {
+export class Home extends Component {
 	componentDidMount() {
 		const params = queryString.parse(this.props.location.search);
 		this.props.getPosts(params.page, params.limit);
@@ -43,31 +44,34 @@ class Home extends Component {
 						Create Post
 					</Button>
 				</p>
-				{error !== false && <div>{error}</div>}
-				{requestType === FETCHING && <div>Fetching...</div>}
+				{error !== false && <Alert color="danger">{error}</Alert>}
+				{requestType === FETCHING && <div className="fetching">Fetching...</div>}
 				{(requestType !== FETCHING && totalPosts === 0) && (
 					<Alert color="info">
 						No posts found.
 					</Alert>
 				)}
-				{totalPosts !== 0 && <div>Number of posts: {totalPosts}</div>}
+				{totalPosts !== 0 && <div className="total-posts">Number of posts: {totalPosts}</div>}
 				{posts.length !== 0 && (
-					<Fragment>
+					<div className="posts">
 						{posts.map(( post, index ) => (
-							<div key={post.id}>
+							<div
+								key={post.id}
+								className="posts__article"
+							>
 								<Link to={`/post/${post.id}`}>
 									{post.title}
 								</Link>
 								<p>{post.content}</p>
 							</div>
 						))}
-					</Fragment>
+					</div>
 				)}
 				{posts.length !== 0 && (
 	        <ReactPaginate
 	          previousLabel={'Previous'}
 	          nextLabel={'Next'}
-	          pageCount={Math.floor(totalPosts / 5) + 1}
+	          pageCount={Math.floor(totalPosts / LIMIT_POST) + 1}
 	          marginPagesDisplayed={2}
 	          pageRangeDisplayed={1}
 	          onPageChange={this.handlePaginationClick}
