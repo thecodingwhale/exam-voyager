@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { push } from 'connected-react-router';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';

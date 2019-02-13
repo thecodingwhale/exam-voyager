@@ -1,5 +1,6 @@
 {
   "name": "exam-voyager",
+  "homepage": "http://aldrenterante.exam-voyager.surge.sh",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,7 +28,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rm -rf build && react-scripts build && echo aldrenterante.exam-voyager.surge.sh > ./build/CNAME && surge ./build",
     "test": "react-scripts test --verbose true",
     "eject": "react-scripts eject",
     "lint": "yarn eslint src --ext .js",
