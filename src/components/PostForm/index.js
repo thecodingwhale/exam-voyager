@@ -7,14 +7,14 @@ const validate = values => {
   const errors = {};
   if (!values.title) {
     errors.title = 'Required';
-  } else if (values.title.length > 100) {
-    errors.title = 'Must be 100 characters or less.';
+  } else if (values.title.length < 50) {
+    errors.title = 'Must be 50 characters or more';
   }
 
   if (!values.content) {
     errors.content = 'Required';
   } else if (values.content.length < 150) {
-    errors.content = 'Must be 150 characters or more.';
+    errors.content = 'Must be 150 characters or more';
   }
 
   return errors;

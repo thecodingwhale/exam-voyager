@@ -47,3 +47,5 @@ yarn build
 ## Todo
 - add more unit tests
 - implement e2e testing using cypress.io
+- add flow for type checking
+- and more...

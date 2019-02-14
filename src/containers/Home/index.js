@@ -39,11 +39,10 @@ export class Home extends Component {
 		const { requestType, posts, totalPosts, error } = this.props;
 		return (
 			<div>
-				<p>
-					<Button color="primary" onClick={this.handleCreatePostClick}>
-						Create Post
-					</Button>
-				</p>
+				<Button color="primary" onClick={this.handleCreatePostClick}>
+					Create Post
+				</Button>
+				<hr />
 				{error !== false && <Alert color="danger">{error}</Alert>}
 				{requestType === FETCHING && <div className="fetching">Fetching...</div>}
 				{(requestType !== FETCHING && totalPosts === 0) && (
